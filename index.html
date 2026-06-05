@@ -228,6 +228,30 @@ p{
   }
 }
 
+
+/* ===== 글 자동 이어짐 페이지 처리 ===== */
+.page.continuation .page-inner{
+  padding:42px 28px 46px !important;
+  display:flex !important;
+  flex-direction:column !important;
+  gap:0 !important;
+}
+.page.continuation .text{
+  flex:1 1 auto !important;
+  overflow:hidden !important;
+}
+.page.continuation .continued-mark{
+  font-size:13px !important;
+  color:var(--muted) !important;
+  margin-bottom:18px !important;
+  letter-spacing:-.02em !important;
+}
+@media (max-width:430px){
+  .page.continuation .page-inner{
+    padding:44px 28px 48px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -558,14 +582,128 @@ p{
   <button class="tap right" aria-label="다음 페이지" onclick="go(1)">다음</button>
 </div>
 <script>
-const pages=[...document.querySelectorAll('.page')];
+
+function paginateLongChapters(){
+  const chapters = [...document.querySelectorAll('.page.chapter')];
+
+  chapters.forEach((chapter)=>{
+    const originalText = chapter.querySelector('.text');
+    if(!originalText) return;
+
+    const paragraphTexts = [...originalText.querySelectorAll('p')]
+      .map(p => p.textContent.trim())
+      .filter(Boolean);
+
+    if(paragraphTexts.length === 0) return;
+
+    const queue = paragraphTexts.map(text => ({
+      words: text.split(/\s+/).filter(Boolean)
+    }));
+
+    function appendWordToParagraph(p, word){
+      p.textContent = p.textContent ? p.textContent + ' ' + word : word;
+    }
+
+    function isOverflow(textBox){
+      return textBox.scrollHeight > textBox.clientHeight + 2;
+    }
+
+    function fillTextBox(textBox, queue){
+      textBox.innerHTML = '';
+
+      while(queue.length){
+        const item = queue[0];
+        const p = document.createElement('p');
+        textBox.appendChild(p);
+
+        let added = 0;
+
+        while(item.words.length){
+          const word = item.words.shift();
+          appendWordToParagraph(p, word);
+          added++;
+
+          if(isOverflow(textBox)){
+            const words = p.textContent.split(/\s+/).filter(Boolean);
+            const last = words.pop();
+
+            if(last !== undefined){
+              item.words.unshift(last);
+            }
+
+            p.textContent = words.join(' ');
+            added--;
+
+            if(!p.textContent.trim()){
+              p.remove();
+
+              if(item.words.length){
+                const forced = document.createElement('p');
+                forced.textContent = item.words.shift();
+                textBox.appendChild(forced);
+              }
+            }
+
+            return;
+          }
+        }
+
+        queue.shift();
+      }
+    }
+
+    fillTextBox(originalText, queue);
+
+    let insertAfter = chapter;
+    let guard = 0;
+
+    while(queue.length && guard < 30){
+      guard++;
+
+      const cont = document.createElement('section');
+      cont.className = 'page chapter continuation';
+
+      cont.innerHTML = `
+        <div class="page-inner">
+          <div class="continued-mark">이전 글 이어서</div>
+          <div class="text"></div>
+        </div>
+        <div class="page-no"></div>
+      `;
+
+      insertAfter.insertAdjacentElement('afterend', cont);
+
+      const contText = cont.querySelector('.text');
+      fillTextBox(contText, queue);
+
+      insertAfter = cont;
+    }
+  });
+}
+
+paginateLongChapters();
+
+let pages=[...document.querySelectorAll('.page')];
 let current=0;
+
+function updateTocTargets(){
+  const chapterPages = [...document.querySelectorAll('.page.chapter:not(.continuation)')];
+  const buttons = [...document.querySelectorAll('[data-target]')];
+
+  buttons.forEach((btn, i)=>{
+    if(chapterPages[i]){
+      btn.dataset.target = String(pages.indexOf(chapterPages[i]));
+    }
+  });
+}
+
 function setPageNumbers(){
   pages.forEach((p,i)=>{
     const n=p.querySelector('.page-no');
     if(n) n.textContent = (i+1)+' / '+pages.length;
   });
 }
+
 function show(n){
   current=Math.max(0,Math.min(n,pages.length-1));
   pages.forEach((p,i)=>{
@@ -575,19 +713,39 @@ function show(n){
     else p.classList.add('next');
   });
 }
+
 function go(d){show(current+d)}
+
+updateTocTargets();
+
 document.querySelectorAll('[data-target]').forEach(btn=>{
-  btn.addEventListener('click',e=>{e.stopPropagation(); show(Number(btn.dataset.target));});
+  btn.addEventListener('click',e=>{
+    e.stopPropagation();
+    show(Number(btn.dataset.target));
+  });
 });
+
 let startX=0, startY=0;
-document.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;startY=e.touches[0].clientY;},{passive:true});
+
+document.addEventListener('touchstart',e=>{
+  startX=e.touches[0].clientX;
+  startY=e.touches[0].clientY;
+},{passive:true});
+
 document.addEventListener('touchend',e=>{
   const dx=e.changedTouches[0].clientX-startX;
   const dy=e.changedTouches[0].clientY-startY;
   if(Math.abs(dx)>45 && Math.abs(dx)>Math.abs(dy)*1.2) go(dx<0?1:-1);
 },{passive:true});
-document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(1); if(e.key==='ArrowLeft')go(-1);});
-setPageNumbers(); show(0);
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight')go(1);
+  if(e.key==='ArrowLeft')go(-1);
+});
+
+setPageNumbers();
+show(0);
+
 </script>
 </body>
 </html>
