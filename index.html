@@ -1,160 +1,247 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>송정애의 기록책</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>송정애의 기록</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap');
 
 *{
+    margin:0;
+    padding:0;
     box-sizing:border-box;
 }
 
 body{
-    margin:0;
-    background:#d8c7b1;
+    background:#d6c3ab;
     font-family:'Noto Serif KR', serif;
-    color:#2f241d;
-}
 
-.book-wrap{
-    width:100%;
-    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    padding:24px 12px;
+
+    min-height:100vh;
+
+    overflow:hidden;
 }
 
-.book{
-    width:min(92vw,390px);
-    height:min(92vh,690px);
+/* 바깥 영역 */
+.viewer{
+
+    width:100%;
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:14px;
+}
+
+/* 폰 비율 유지 */
+.phone{
+
+    width:min(94vw,390px);
+    height:min(96vh,820px);
+
     position:relative;
+
+    border-radius:36px;
+
+    overflow:hidden;
+
+    background:#f8f2e7;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.22);
 }
 
+/* 페이지 */
 .page{
+
     position:absolute;
     inset:0;
 
-    background:#fbf6ec;
+    background:#fbf7ef;
 
-    border-radius:28px;
-
-    padding:38px 28px 56px;
-
-    box-shadow:
-        0 10px 25px rgba(74,52,32,0.18),
-        inset 0 0 0 1px rgba(110,82,55,0.08);
+    padding:34px 28px 70px;
 
     display:none;
+
     flex-direction:column;
 
-    overflow:hidden;
+    transform-origin:left center;
+
+    animation:pageOpen .5s ease;
+
 }
 
 .page.active{
     display:flex;
 }
 
-.page-header{
-    display:flex;
-    align-items:center;
-    gap:14px;
+/* 책 넘김 느낌 */
+@keyframes pageOpen{
 
-    margin-bottom:28px;
+    0%{
+        opacity:0;
+        transform:
+            perspective(1200px)
+            rotateY(-14deg)
+            translateX(18px);
+    }
+
+    100%{
+        opacity:1;
+        transform:
+            perspective(1200px)
+            rotateY(0deg)
+            translateX(0);
+    }
 }
 
-.num{
-    background:#6b4632;
-    color:white;
+.cover{
 
-    border-radius:18px;
-
-    padding:7px 15px;
-
-    font-size:18px;
-    font-weight:700;
-
-    line-height:1;
-
-    flex-shrink:0;
-}
-
-h1{
-    margin:0;
-
-    font-size:26px;
-    line-height:1.35;
-
-    letter-spacing:-0.04em;
-}
-
-.image-frame{
-    width:100%;
-
-    height:220px;
-    min-height:220px;
-
-    margin-bottom:28px;
-
-    border-radius:22px;
+    padding:0;
 
     overflow:hidden;
-
-    background:linear-gradient(
-        135deg,
-        #efe5d6,
-        #dcc7aa
-    );
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    flex-shrink:0;
 
     position:relative;
 }
 
-.image-frame img{
+.cover img{
+
     width:100%;
     height:100%;
 
     object-fit:cover;
-
-    display:block;
 }
 
-.image-placeholder{
+/* 표지 어둡게 */
+.cover::after{
+
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,0.62),
+            rgba(0,0,0,0.12)
+        );
+}
+
+/* 표지 텍스트 */
+.cover-text{
+
+    position:absolute;
+
+    left:30px;
+    right:30px;
+    bottom:70px;
+
+    z-index:5;
+
+    color:white;
+}
+
+.cover-text h1{
+
+    font-size:38px;
+    line-height:1.28;
+
+    font-weight:700;
+
+    margin-bottom:18px;
+
+    letter-spacing:-0.04em;
+}
+
+.cover-text p{
+
+    font-size:16px;
+    opacity:0.9;
+}
+
+/* 내부 페이지 */
+
+.top{
+
+    display:flex;
+    align-items:center;
+
+    gap:14px;
+
+    margin-bottom:24px;
+}
+
+.num{
+
+    min-width:54px;
+    height:54px;
+
+    border-radius:50%;
+
+    background:#6a4a37;
+
+    color:white;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:20px;
+    font-weight:700;
+}
+
+.title{
+
+    font-size:27px;
+    line-height:1.35;
+
+    font-weight:700;
+
+    letter-spacing:-0.04em;
+}
+
+.photo{
+
+    width:100%;
+    height:250px;
+
+    border-radius:24px;
+
+    overflow:hidden;
+
+    margin-bottom:28px;
+
+    background:#eadbc6;
+}
+
+.photo img{
+
     width:100%;
     height:100%;
 
-    display:flex;
-    flex-direction:column;
-
-    align-items:center;
-    justify-content:center;
-
-    color:#8f7b6b;
-
-    text-align:center;
-
-    line-height:1.8;
-
-    font-size:18px;
-}
-
-.image-placeholder small{
-    font-size:15px;
-    opacity:0.85;
+    object-fit:cover;
 }
 
 .text{
-    font-size:18px;
 
-    line-height:1.9;
+    font-size:19px;
+
+    line-height:1.95;
+
+    color:#34261d;
 
     letter-spacing:-0.03em;
 
@@ -162,313 +249,293 @@ h1{
 }
 
 .text p{
-    margin:0 0 18px;
+    margin-bottom:18px;
 }
 
-.page-number{
+.page-count{
+
     position:absolute;
 
+    bottom:26px;
     left:0;
     right:0;
 
-    bottom:24px;
-
     text-align:center;
 
-    color:#b2a79c;
+    font-size:15px;
 
-    font-size:16px;
+    color:#a69788;
 }
 
+/* 버튼 */
+
 .nav{
-    position:fixed;
 
-    left:50%;
+    position:absolute;
+
     bottom:18px;
-
-    transform:translateX(-50%);
-
-    width:min(86vw,360px);
-
-    background:#111;
-
-    border-radius:34px;
-
-    padding:12px 24px;
+    left:0;
+    right:0;
 
     display:flex;
     justify-content:space-between;
-    align-items:center;
 
-    z-index:100;
+    padding:0 18px;
+
+    z-index:20;
 }
 
 .nav button{
+
+    width:54px;
+    height:54px;
+
     border:none;
-    background:none;
+
+    border-radius:50%;
+
+    background:rgba(0,0,0,0.68);
 
     color:white;
 
     font-size:26px;
 
     cursor:pointer;
+
+    backdrop-filter:blur(6px);
 }
 
-.nav button:disabled{
-    opacity:0.25;
+.nav button:hover{
+    background:black;
 }
 
+/* 데스크탑에서도 폰 비율 유지 */
 @media (min-width:700px){
 
-    .book{
+    .phone{
         width:390px;
-        height:700px;
-    }
-
-    .page{
-        padding:42px 32px 56px;
-    }
-
-    .image-frame{
-        height:230px;
-        min-height:230px;
-    }
-
-    h1{
-        font-size:28px;
-    }
-
-    .text{
-        font-size:18px;
-    }
-
-    .nav{
-        display:none;
+        height:820px;
     }
 }
 
+/* 작은 폰 */
 @media (max-width:430px){
 
-    .book-wrap{
-        align-items:flex-start;
-        padding:16px 10px;
+    .phone{
+
+        width:100vw;
+        height:100vh;
+
+        border-radius:0;
     }
 
-    .book{
-        width:100%;
-        height:calc(100vh - 34px);
+    .cover-text h1{
+        font-size:42px;
     }
 
-    .page{
-        padding:42px 28px 64px;
-    }
-
-    h1{
-        font-size:27px;
-    }
-
-    .image-frame{
-        height:235px;
-        min-height:235px;
+    .title{
+        font-size:29px;
     }
 
     .text{
         font-size:21px;
-        line-height:1.9;
+    }
+
+    .photo{
+        height:270px;
     }
 }
+
 </style>
 </head>
 
 <body>
 
-<div class="book-wrap">
-<div class="book">
+<div class="viewer">
 
-<!-- PAGE 1 -->
-<section class="page active">
+<div class="phone">
 
-    <div class="page-header">
-        <div class="num">01</div>
-        <h1>프롤로그 — 송정애의 방</h1>
-    </div>
+    <!-- 표지 -->
+    <section class="page cover active">
 
-    <div class="image-frame">
-        <img src="images/main.jpg" alt="">
-    </div>
+        <!-- 대표 표지 이미지 -->
+        <img src="cover.jpg">
 
-    <div class="text">
-        <p>
-            이 페이지에는 해당 기록물의 사진과 짧은 글을 넣습니다.
-        </p>
+        <div class="cover-text">
 
-        <p>
-            전시장에서는 오래 읽히는 글보다,
-            한 장면이 정확히 남는 구성이 더 강합니다.
-        </p>
-    </div>
+            <h1>
+                송정애의 기록
+            </h1>
 
-    <div class="page-number">1 / 5</div>
+            <p>
+                삶의 조각들을 모은 작은 책
+            </p>
 
-</section>
-
-<!-- PAGE 2 -->
-<section class="page">
-
-    <div class="page-header">
-        <div class="num">02</div>
-        <h1>남편이 사랑한 나무</h1>
-    </div>
-
-    <div class="image-frame">
-
-        <div class="image-placeholder">
-            이미지 자리
-            <small>
-                images/tree.jpg로 교체
-            </small>
         </div>
 
-    </div>
+    </section>
 
-    <div class="text">
+    <!-- PAGE 1 -->
+    <section class="page">
 
-        <p>
-            오래된 나무 아래에서 가족은 밥을 먹고,
-            이야기를 나누고, 계절을 지나왔습니다.
-        </p>
+        <div class="top">
 
-        <p>
-            나무는 한 사람의 기억이 되었고,
-            그 기억은 다시 그림이 되었습니다.
-        </p>
+            <div class="num">01</div>
 
-    </div>
+            <div class="title">
+                남편이 사랑한 나무
+            </div>
 
-    <div class="page-number">2 / 5</div>
-
-</section>
-
-<!-- PAGE 3 -->
-<section class="page">
-
-    <div class="page-header">
-        <div class="num">03</div>
-        <h1>나의 일기장</h1>
-    </div>
-
-    <div class="image-frame">
-
-        <div class="image-placeholder">
-            이미지 자리
-            <small>
-                images/diary.jpg로 교체
-            </small>
         </div>
 
-    </div>
-
-    <div class="text">
-
-        <p>
-            일기는 하루를 붙잡아 두는 가장 조용한 방식입니다.
-        </p>
-
-        <p>
-            흘러간 시간은 사라지지 않고,
-            손글씨와 종이의 결 안에 남았습니다.
-        </p>
-
-    </div>
-
-    <div class="page-number">3 / 5</div>
-
-</section>
-
-<!-- PAGE 4 -->
-<section class="page">
-
-    <div class="page-header">
-        <div class="num">04</div>
-        <h1>남의 책 속에 실린 나의 모습</h1>
-    </div>
-
-    <div class="image-frame">
-
-        <div class="image-placeholder">
-            이미지 자리
-            <small>
-                images/book.jpg로 교체
-            </small>
+        <div class="photo">
+            <img src="tree.jpg">
         </div>
 
-    </div>
+        <div class="text">
 
-    <div class="text">
+            <p>
+                오래된 나무 아래에서
+                가족은 함께 시간을 보냈습니다.
+            </p>
 
-        <p>
-            한 사람의 삶은 자기 기록에만 남지 않습니다.
-        </p>
+            <p>
+                계절이 바뀌고 시간이 지나도
+                그 자리의 기억은 남아 있습니다.
+            </p>
 
-        <p>
-            누군가의 책 속에 스친 장면도,
-            다시 돌아보면 또 하나의 자서전이 됩니다.
-        </p>
-
-    </div>
-
-    <div class="page-number">4 / 5</div>
-
-</section>
-
-<!-- PAGE 5 -->
-<section class="page">
-
-    <div class="page-header">
-        <div class="num">05</div>
-        <h1>가족들의 어버이날 엽서</h1>
-    </div>
-
-    <div class="image-frame">
-
-        <div class="image-placeholder">
-            이미지 자리
-            <small>
-                images/card.jpg로 교체
-            </small>
         </div>
 
+        <div class="page-count">
+            1 / 4
+        </div>
+
+    </section>
+
+    <!-- PAGE 2 -->
+    <section class="page">
+
+        <div class="top">
+
+            <div class="num">02</div>
+
+            <div class="title">
+                나의 일기장
+            </div>
+
+        </div>
+
+        <div class="photo">
+            <img src="diary.jpg">
+        </div>
+
+        <div class="text">
+
+            <p>
+                기록은 지나간 시간을 붙잡는 일입니다.
+            </p>
+
+            <p>
+                손글씨와 종이의 감촉 안에
+                하루의 마음들이 남아 있습니다.
+            </p>
+
+        </div>
+
+        <div class="page-count">
+            2 / 4
+        </div>
+
+    </section>
+
+    <!-- PAGE 3 -->
+    <section class="page">
+
+        <div class="top">
+
+            <div class="num">03</div>
+
+            <div class="title">
+                남의 책 속에 실린 나
+            </div>
+
+        </div>
+
+        <div class="photo">
+            <img src="book.jpg">
+        </div>
+
+        <div class="text">
+
+            <p>
+                삶은 때때로
+                누군가의 기록 속에도 남습니다.
+            </p>
+
+            <p>
+                그것은 또 다른 형태의 자서전이 됩니다.
+            </p>
+
+        </div>
+
+        <div class="page-count">
+            3 / 4
+        </div>
+
+    </section>
+
+    <!-- PAGE 4 -->
+    <section class="page">
+
+        <div class="top">
+
+            <div class="num">04</div>
+
+            <div class="title">
+                가족들의 어버이날 엽서
+            </div>
+
+        </div>
+
+        <div class="photo">
+            <img src="card.jpg">
+        </div>
+
+        <div class="text">
+
+            <p>
+                서툰 글씨 안에는
+                진심이 담겨 있었습니다.
+            </p>
+
+            <p>
+                시간이 지나도
+                마음은 오래 남습니다.
+            </p>
+
+        </div>
+
+        <div class="page-count">
+            4 / 4
+        </div>
+
+    </section>
+
+    <!-- 버튼 -->
+    <div class="nav">
+
+        <button onclick="prevPage()">‹</button>
+
+        <button onclick="nextPage()">›</button>
+
     </div>
-
-    <div class="text">
-
-        <p>
-            아이들의 글씨는 서툴렀지만,
-            그 마음은 오래 남았습니다.
-        </p>
-
-        <p>
-            종이는 낡아도
-            그날의 사랑은 아직 선명합니다.
-        </p>
-
-    </div>
-
-    <div class="page-number">5 / 5</div>
-
-</section>
 
 </div>
-</div>
-
-<div class="nav">
-    <button onclick="prevPage()">‹</button>
-    <button onclick="nextPage()">›</button>
 </div>
 
 <script>
 
-const pages = document.querySelectorAll('.page');
+const pages = document.querySelectorAll(".page");
 
 let current = 0;
 
@@ -476,10 +543,10 @@ function showPage(index){
 
     pages.forEach((page,i)=>{
 
+        page.classList.remove("active");
+
         if(i===index){
-            page.classList.add('active');
-        }else{
-            page.classList.remove('active');
+            page.classList.add("active");
         }
 
     });
@@ -493,9 +560,7 @@ function nextPage(){
         current++;
 
         showPage(current);
-
     }
-
 }
 
 function prevPage(){
@@ -505,36 +570,37 @@ function prevPage(){
         current--;
 
         showPage(current);
-
     }
-
 }
 
-document.addEventListener('keydown', function(e){
+/* 키보드 */
+document.addEventListener("keydown",(e)=>{
 
-    if(e.key === 'ArrowRight'){
+    if(e.key==="ArrowRight"){
         nextPage();
     }
 
-    if(e.key === 'ArrowLeft'){
+    if(e.key==="ArrowLeft"){
         prevPage();
     }
 
 });
 
+/* 모바일 스와이프 */
+
 let startX = 0;
 
-document.addEventListener('touchstart', function(e){
+document.addEventListener("touchstart",(e)=>{
 
     startX = e.touches[0].clientX;
 
 });
 
-document.addEventListener('touchend', function(e){
+document.addEventListener("touchend",(e)=>{
 
-    const endX = e.changedTouches[0].clientX;
+    let endX = e.changedTouches[0].clientX;
 
-    const diff = startX - endX;
+    let diff = startX - endX;
 
     if(diff > 50){
         nextPage();
