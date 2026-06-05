@@ -38,7 +38,7 @@
   .art-img{width:100%;height:100%;object-fit:cover;display:block}
   .placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#8a735d;font-size:15px;line-height:1.55;background:linear-gradient(135deg,#f1e5d4,#d6bea0)}
   .placeholder small{font-size:12px;color:#9b846e}
-  .text{overflow:hidden}
+  .text{overflow:hidden;flex:1 1 auto;min-height:0}
   p{font-size:15.5px;line-height:1.78;margin:0 0 10px;word-break:keep-all}
   .quote{font-size:18px;line-height:1.7;color:var(--accent);margin-top:auto}
   .page-no{position:absolute;left:0;right:0;bottom:13px;text-align:center;font-size:11px;color:rgba(76,57,42,.58);z-index:10;letter-spacing:.04em}
@@ -49,12 +49,184 @@
   @media (max-height:720px){h1{font-size:34px} h2{font-size:21px} .media{height:38%;min-height:160px} p{font-size:14px;line-height:1.65} .toc button{height:30px;font-size:11px}}
 
 
-  /* 자동 페이지 넘김: 이어지는 글 페이지 */
-  .continue-page .page-inner{padding-top:56px;gap:0}
-  .continue-page .text{margin-top:0}
-  .continue-page .text p:first-child{margin-top:0}
-  .chapter .text p{margin:0 0 18px}
-  .measure-ready .page{transition:none!important}
+/* ===== 2026-06-05 수정: 표지는 그대로 보존, 본문 이미지 자리 고정 ===== */
+.hint{display:none !important;}
+html, body{
+  overflow:hidden !important;
+}
+body{
+  display:flex !important;
+  justify-content:center !important;
+  align-items:center !important;
+  background:#d8c8b1 !important;
+}
+.stage{
+  width:min(100vw,430px) !important;
+  height:min(100svh,860px) !important;
+  max-height:860px !important;
+  position:relative !important;
+  margin:0 auto !important;
+  background:linear-gradient(180deg,#efe2cf,#d6c2a8) !important;
+  overflow:hidden !important;
+}
+.book{
+  position:absolute !important;
+  inset:10px !important;
+  perspective:1600px !important;
+  overflow:hidden !important;
+}
+.page{
+  border-radius:20px !important;
+  overflow:hidden !important;
+}
+.page-inner{
+  height:100% !important;
+  padding:24px 22px 46px !important;
+  display:flex !important;
+  flex-direction:column !important;
+  gap:14px !important;
+  overflow:hidden !important;
+}
+.chapter-head{
+  display:flex !important;
+  gap:12px !important;
+  align-items:flex-start !important;
+  min-height:auto !important;
+  flex:0 0 auto !important;
+}
+.chapter-head h2{
+  font-size:24px !important;
+  line-height:1.35 !important;
+  margin:0 !important;
+  word-break:keep-all !important;
+}
+.chapter-index{
+  font-size:13px !important;
+  color:#fff !important;
+  background:var(--accent) !important;
+  border-radius:999px !important;
+  padding:5px 9px !important;
+  line-height:1 !important;
+  margin-top:4px !important;
+  flex:0 0 auto !important;
+}
+.media{
+  width:100% !important;
+  height:240px !important;
+  min-height:240px !important;
+  max-height:240px !important;
+  border-radius:18px !important;
+  border:1px solid var(--line) !important;
+  background:#eadcc8 !important;
+  overflow:hidden !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  flex:0 0 auto !important;
+  opacity:1 !important;
+  visibility:visible !important;
+}
+.art-img,
+.media img{
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+  display:block !important;
+}
+.placeholder{
+  width:100% !important;
+  height:100% !important;
+  min-height:240px !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  text-align:center !important;
+  color:#8a735d !important;
+  font-size:17px !important;
+  line-height:1.6 !important;
+  background:linear-gradient(135deg,#f1e5d4,#d6bea0) !important;
+}
+.placeholder small{
+  display:block !important;
+  margin-top:4px !important;
+  font-size:13px !important;
+  color:#9b846e !important;
+}
+.text{
+  overflow:hidden !important;
+  flex:1 1 auto !important;
+}
+p{
+  font-size:16px !important;
+  line-height:1.75 !important;
+  margin:0 0 10px !important;
+  word-break:keep-all !important;
+}
+.page-no{
+  bottom:14px !important;
+  font-size:12px !important;
+}
+.tap{
+  background:transparent !important;
+  color:transparent !important;
+}
+.controls,
+.nav,
+.bottom-bar,
+.mobile-toolbar{
+  display:none !important;
+}
+@media (min-width:700px){
+  .stage{
+    width:430px !important;
+    height:min(96vh,860px) !important;
+  }
+  .media{
+    height:235px !important;
+    min-height:235px !important;
+    max-height:235px !important;
+  }
+  .placeholder{
+    min-height:235px !important;
+  }
+  .chapter-head h2{
+    font-size:24px !important;
+  }
+  p{
+    font-size:15.5px !important;
+    line-height:1.75 !important;
+  }
+}
+@media (max-width:430px){
+  .stage{
+    width:100vw !important;
+    height:100svh !important;
+    max-height:none !important;
+  }
+  .book{
+    inset:10px !important;
+  }
+  .page-inner{
+    padding:26px 22px 46px !important;
+  }
+  .chapter-head h2{
+    font-size:27px !important;
+  }
+  .media{
+    height:255px !important;
+    min-height:255px !important;
+    max-height:255px !important;
+  }
+  .placeholder{
+    min-height:255px !important;
+    font-size:18px !important;
+  }
+  p{
+    font-size:18px !important;
+    line-height:1.8 !important;
+  }
+}
 
 </style>
 </head>
@@ -116,6 +288,7 @@
         <div class="text">
           <p>
 오랜 시간 동안 남겨 온 그림과 글, 오래 보관해 온 편지와 사진들, 일기장 속의 문장들과 작은 메모들은 어느 순간 단순한 기록이 아니라 삶의 흔적으로 남게 되었습니다.
+
 우리는 살아가며 많은 순간들을 지나치듯 보내지만, 어떤 기억들은 시간이 흘러도 마음속에 오래 남아 있습니다.
 함께 식사를 하던 저녁의 풍경, 아이들이 건네준 작은 카드 한 장, 성당에서 적어 두었던 강론의 문장, 계절마다 바라보던 나무와 풍경들.
 이 책 속에 담긴 것들은 거창한 이야기가 아니라 그렇게 평범하지만 오래 남은 시간들입니다.
@@ -123,13 +296,14 @@
 그림은 단순히 아름다운 장면을 남기는 일이 아니라, 그 순간의 마음과 시간을 붙잡아 두는 일이라고 생각했습니다.
 그래서 이번 책은 그림만을 보여주는 화집의 형태보다는, 삶과 기억이 함께 흐르는 기록의 방식으로 구성하고자 했습니다.
 한 장의 그림 옆에는 그 시절의 이야기와 마음을 함께 담고, 오래 간직해 온 기록물들과 사진들도 함께 정리했습니다.
+
           </p>
+          <p>
 삶은 지나가지만 기록은 남습니다.
 그리고 남겨진 기록들은 다시 한 사람의 시간을 이야기하게 됩니다.
 이 책이 누군가에게는 잠시 머물러 자신의 시간들을 떠올려 보는 작은 쉼표 같은 기록으로 남기를 바랍니다.
-          <p>
-            전시장에서 오래 읽히는 글보다, 한 장면이 정확히 남는 구성이 더 강합니다.
-          </p></div>
+          </p>
+        </div>
       </div>
       <div class="page-no"></div>
     </section>
@@ -137,7 +311,7 @@
     <section class="page chapter">
       <div class="page-inner">
         <header class="chapter-head"><div class="chapter-index">02</div><h2>남편이 사랑한 나무</h2></header>
-        <div class="media"><div class="placeholder">이미지 자리<br><small>images/파일명.jpg로 교체</small></div></div>
+        <div class="media"><div class="placeholder">이미지 자리<br><small>images/s24.jpg로 교체</small></div></div>
         <div class="text"><p>나무는 말이 없지만, 오래 곁에 선 사람의 시간을 압니다.</p><p>이 장면은 한 사람을 설명하기보다, 그 사람이 사랑한 풍경을 통해 삶을 비추는 페이지입니다.</p></div>
       </div>
       <div class="page-no"></div>
@@ -146,7 +320,7 @@
     <section class="page chapter">
       <div class="page-inner">
         <header class="chapter-head"><div class="chapter-index">03</div><h2>나의 일기장</h2></header>
-        <div class="media"><div class="placeholder">이미지 자리<br><small>images/파일명.jpg로 교체</small></div></div>
+        <div class="media"><img src="images/s25.jpg" alt="나의 일기장"></div>
         <div class="text"><p>일기는 대단한 사건을 적는 곳이 아니었습니다.</p><p>하루를 그냥 흘려보내지 않으려는 마음이 조용히 머무는 곳이었습니다.</p></div>
       </div>
       <div class="page-no"></div>
@@ -155,7 +329,7 @@
     <section class="page chapter">
       <div class="page-inner">
         <header class="chapter-head"><div class="chapter-index">04</div><h2>남의 책 속에 실린 나의 모습</h2></header>
-        <div class="media"><div class="placeholder">이미지 자리<br><small>images/파일명.jpg로 교체</small></div></div>
+        <div class="media"><img src="images/s22.jpg" alt="나의 일기장"></div>
         <div class="text"><p>이 페이지에는 해당 기록물의 사진과 짧은 글을 넣습니다.</p><p>전시장에서 오래 읽히는 글보다, 한 장면이 정확히 남는 구성이 더 강합니다.</p></div>
       </div>
       <div class="page-no"></div>
@@ -164,7 +338,7 @@
     <section class="page chapter">
       <div class="page-inner">
         <header class="chapter-head"><div class="chapter-index">05</div><h2>강론 기록집</h2></header>
-        <div class="media"><div class="placeholder">이미지 자리<br><small>images/파일명.jpg로 교체</small></div></div>
+        <div class="media"><img src="images/s22.jpg" alt="나의 일기장"></div>
         <div class="text"><p>이 페이지에는 해당 기록물의 사진과 짧은 글을 넣습니다.</p><p>전시장에서 오래 읽히는 글보다, 한 장면이 정확히 남는 구성이 더 강합니다.</p></div>
       </div>
       <div class="page-no"></div>
@@ -173,7 +347,7 @@
     <section class="page chapter">
       <div class="page-inner">
         <header class="chapter-head"><div class="chapter-index">06</div><h2>엘리 편지</h2></header>
-        <div class="media"><div class="placeholder">이미지 자리<br><small>images/파일명.jpg로 교체</small></div></div>
+        <div class="media"><img src="images/s22.jpg" alt="나의 일기장"></div>
         <div class="text"><p>이 페이지에는 해당 기록물의 사진과 짧은 글을 넣습니다.</p><p>전시장에서 오래 읽히는 글보다, 한 장면이 정확히 남는 구성이 더 강합니다.</p></div>
       </div>
       <div class="page-no"></div>
@@ -182,7 +356,7 @@
     <section class="page chapter">
       <div class="page-inner">
         <header class="chapter-head"><div class="chapter-index">07</div><h2>요셉의 ME 노트와 독서록</h2></header>
-        <div class="media"><div class="placeholder">이미지 자리<br><small>images/파일명.jpg로 교체</small></div></div>
+        <div class="media"><img src="images/s22.jpg" alt="나의 일기장"></div>
         <div class="text"><p>이 페이지에는 해당 기록물의 사진과 짧은 글을 넣습니다.</p><p>전시장에서 오래 읽히는 글보다, 한 장면이 정확히 남는 구성이 더 강합니다.</p></div>
       </div>
       <div class="page-no"></div>
@@ -191,8 +365,11 @@
     <section class="page chapter">
       <div class="page-inner">
         <header class="chapter-head"><div class="chapter-index">08</div><h2>사랑의 편지 25편</h2></header>
-        <div class="media"><div class="placeholder">이미지 자리<br><small>images/파일명.jpg로 교체</small></div></div>
-        <div class="text"><p>편지는 그때의 목소리를 품고 있습니다.</p><p>글씨의 기울기, 접힌 자국, 지워지지 않은 날짜가 한 시절을 대신 말합니다.</p></div>
+        <div class="media"><img src="images/s22.jpg" alt="나의 일기장"></div>
+        <div class="text"><p>바람 속에 가을이 깃든 맑은 아침 딸 엘리사벳 수녀의 수도회에서 지구 생태계 살리기 위한 나무 심기 아나바다의 가족을 초대했다 
+          수녀원에 도착해 미사를 드리고 점심을 먹은 후 수녀님들이 만든 음식과 소품 노트를 구매했다 알록달록 이쁜 천은 원하는만큼 가져가라고 했지만 
+          이미 무거워진 내짐에 더 챙길 수가 없어 몇 개만 챙긴 후 구입한 물건들을 양손 가득 들고 마지막 손님으로 귀가했다 
+          </p><p>월간 독자 리더 가톨릭 다이제스트 2025년 7월 </p></div>
       </div>
       <div class="page-no"></div>
     </section>
@@ -401,14 +578,28 @@
 <script>
 let pages=[];
 let current=0;
+let rebuildTimer=null;
 
 const book=document.querySelector('.book');
 const originalPages=[...document.querySelectorAll('.page')].map(p=>p.cloneNode(true));
 
-function overflow(page){
+function textOverflow(page){
+  const textBoxes=[...page.querySelectorAll('.text')];
+
+  return textBoxes.some(box=>{
+    if(!box) return false;
+    return box.scrollHeight > box.clientHeight + 2;
+  });
+}
+
+function pageOverflow(page){
   const inner=page.querySelector('.page-inner');
   if(!inner) return false;
-  return inner.scrollHeight > inner.clientHeight + 2;
+
+  const innerOverflow = inner.scrollHeight > inner.clientHeight + 2;
+  const textBoxOverflow = textOverflow(page);
+
+  return innerOverflow || textBoxOverflow;
 }
 
 function makeBasicPage(){
@@ -424,91 +615,113 @@ function makeBasicPage(){
 function makeFirstChapterPage(src){
   const page=makeBasicPage();
   const inner=page.querySelector('.page-inner');
+
   const head=src.querySelector('.chapter-head');
   const media=src.querySelector('.media');
+
   if(head) inner.appendChild(head.cloneNode(true));
   if(media) inner.appendChild(media.cloneNode(true));
+
   const text=document.createElement('div');
   text.className='text';
   inner.appendChild(text);
+
   return page;
 }
 
 function makeContinuePage(){
   const page=makeBasicPage();
   page.classList.add('continue-page');
+
   const inner=page.querySelector('.page-inner');
+
   const text=document.createElement('div');
   text.className='text';
   inner.appendChild(text);
+
   return page;
 }
 
 function splitTokens(str){
-  const bySpace=str.split(/(\s+)/).filter(x=>x.length>0);
-  if(bySpace.length<=1){
-    return [...str];
-  }
-  return bySpace;
+  const chunks=str.split(/(\s+)/).filter(x=>x.length>0);
+  return chunks.length > 1 ? chunks : [...str];
 }
 
-function maxTokensThatFit(page, tokens){
+function tokensToText(tokens){
+  return tokens.join('');
+}
+
+function maxTokensThatFit(page,tokens){
   const textBox=page.querySelector('.text');
-  let lo=0, hi=tokens.length, best=0;
+  if(!textBox) return 0;
+
   const p=document.createElement('p');
   textBox.appendChild(p);
+
+  let lo=0;
+  let hi=tokens.length;
+  let best=0;
+
   while(lo<=hi){
     const mid=Math.floor((lo+hi)/2);
-    p.textContent=tokens.slice(0,mid).join('');
-    if(!overflow(page)){
+    p.textContent=tokensToText(tokens.slice(0,mid));
+
+    if(!pageOverflow(page)){
       best=mid;
       lo=mid+1;
     }else{
       hi=mid-1;
     }
   }
+
   p.remove();
   return best;
 }
 
-function appendParagraphOrSplit(page, paragraphText){
+function appendParagraphOrSplit(page,paragraphText){
   const textBox=page.querySelector('.text');
+  if(!textBox) return paragraphText;
+
   const p=document.createElement('p');
   p.textContent=paragraphText;
   textBox.appendChild(p);
 
-  if(!overflow(page)){
+  if(!pageOverflow(page)){
     return '';
   }
 
   p.remove();
+
   const tokens=splitTokens(paragraphText);
-  let fit=maxTokensThatFit(page,tokens);
+  const fit=maxTokensThatFit(page,tokens);
 
-  if(fit<=0 && tokens.length>0){
-    fit=1;
+  if(fit<=0){
+    return paragraphText;
   }
 
-  if(fit>0){
-    const fitted=document.createElement('p');
-    fitted.textContent=tokens.slice(0,fit).join('');
-    textBox.appendChild(fitted);
-  }
+  const fitted=document.createElement('p');
+  fitted.textContent=tokensToText(tokens.slice(0,fit));
+  textBox.appendChild(fitted);
 
-  return tokens.slice(fit).join('').trimStart();
+  return tokensToText(tokens.slice(fit)).trimStart();
+}
+
+function collectParagraphs(src){
+  return [...src.querySelectorAll('.text p')]
+    .map(p=>p.textContent.trim())
+    .filter(Boolean);
 }
 
 function paginateChapter(src){
   const result=[];
-  const paragraphNodes=[...src.querySelectorAll('.text p')];
-  const paragraphs=paragraphNodes.map(p=>p.textContent.trim()).filter(Boolean);
+  const paragraphs=collectParagraphs(src);
 
   let page=makeFirstChapterPage(src);
   book.appendChild(page);
   result.push(page);
 
-  for(let para of paragraphs){
-    let rest=para;
+  for(const paragraph of paragraphs){
+    let rest=paragraph;
 
     while(rest.length>0){
       const remained=appendParagraphOrSplit(page,rest);
@@ -529,6 +742,7 @@ function paginateChapter(src){
 
 function buildPages(){
   document.body.classList.add('measure-ready');
+
   book.innerHTML='';
 
   const newPages=[];
@@ -546,7 +760,11 @@ function buildPages(){
 
   pages=newPages;
   setPageNumbers();
-  show(0);
+
+  if(current>=pages.length) current=pages.length-1;
+  if(current<0) current=0;
+
+  show(current);
   document.body.classList.remove('measure-ready');
 }
 
@@ -559,19 +777,29 @@ function setPageNumbers(){
 
 function show(n){
   if(!pages.length) return;
+
   current=Math.max(0,Math.min(n,pages.length-1));
+
   pages.forEach((p,i)=>{
     p.classList.remove('active','prev','next');
-    if(i===current)p.classList.add('active');
-    else if(i<current)p.classList.add('prev');
-    else p.classList.add('next');
+
+    if(i===current){
+      p.classList.add('active');
+    }else if(i<current){
+      p.classList.add('prev');
+    }else{
+      p.classList.add('next');
+    }
   });
 }
 
-function go(d){show(current+d)}
+function go(d){
+  show(current+d);
+}
 
 function bindEvents(){
-  let startX=0,startY=0;
+  let startX=0;
+  let startY=0;
 
   document.addEventListener('touchstart',e=>{
     startX=e.touches[0].clientX;
@@ -581,21 +809,42 @@ function bindEvents(){
   document.addEventListener('touchend',e=>{
     const dx=e.changedTouches[0].clientX-startX;
     const dy=e.changedTouches[0].clientY-startY;
+
     if(Math.abs(dx)>45 && Math.abs(dx)>Math.abs(dy)*1.2){
       go(dx<0?1:-1);
     }
   },{passive:true});
 
   document.addEventListener('keydown',e=>{
-    if(e.key==='ArrowRight')go(1);
-    if(e.key==='ArrowLeft')go(-1);
+    if(e.key==='ArrowRight') go(1);
+    if(e.key==='ArrowLeft') go(-1);
   });
+
+  document.querySelector('.tap.left')?.addEventListener('click',()=>go(-1));
+  document.querySelector('.tap.right')?.addEventListener('click',()=>go(1));
 }
 
-window.addEventListener('load',()=>{
-  buildPages();
+function scheduleRebuild(){
+  clearTimeout(rebuildTimer);
+  rebuildTimer=setTimeout(()=>buildPages(),180);
+}
+
+window.addEventListener('load',async ()=>{
   bindEvents();
+
+  buildPages();
+
+  if(document.fonts && document.fonts.ready){
+    await document.fonts.ready;
+    buildPages();
+  }
+
+  setTimeout(buildPages,300);
+  setTimeout(buildPages,900);
 });
+
+window.addEventListener('resize',scheduleRebuild);
+window.addEventListener('orientationchange',scheduleRebuild);
 </script>
 </body>
 </html>
