@@ -8,204 +8,273 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap');
 
-* {
-    box-sizing: border-box;
+*{
+    box-sizing:border-box;
 }
 
-body {
-    margin: 0;
-    background: #d8c7b1;
-    font-family: 'Noto Serif KR', serif;
-    color: #2f241d;
+body{
+    margin:0;
+    background:#d8c7b1;
+    font-family:'Noto Serif KR', serif;
+    color:#2f241d;
 }
 
-.book-wrap {
-    width: 100%;
-    min-height: 100vh;
-    padding: 24px 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.book-wrap{
+    width:100%;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:24px 12px;
 }
 
-.book {
-    width: min(92vw, 390px);
-    height: min(92vh, 690px);
-    position: relative;
+.book{
+    width:min(92vw,390px);
+    height:min(92vh,690px);
+    position:relative;
 }
 
-.page {
-    position: absolute;
-    inset: 0;
-    background: #fbf6ec;
-    border-radius: 26px;
-    padding: 38px 28px 52px;
+.page{
+    position:absolute;
+    inset:0;
+
+    background:#fbf6ec;
+
+    border-radius:28px;
+
+    padding:38px 28px 56px;
+
     box-shadow:
-        0 10px 25px rgba(74, 52, 32, 0.22),
-        inset 0 0 0 1px rgba(110, 82, 55, 0.12);
-    display: none;
-    flex-direction: column;
-    overflow: hidden;
+        0 10px 25px rgba(74,52,32,0.18),
+        inset 0 0 0 1px rgba(110,82,55,0.08);
+
+    display:none;
+    flex-direction:column;
+
+    overflow:hidden;
 }
 
-.page.active {
-    display: flex;
+.page.active{
+    display:flex;
 }
 
-.page-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 28px;
+.page-header{
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+    margin-bottom:28px;
 }
 
-.num {
-    background: #654432;
-    color: white;
-    border-radius: 18px;
-    padding: 7px 15px;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 1;
-    flex-shrink: 0;
+.num{
+    background:#6b4632;
+    color:white;
+
+    border-radius:18px;
+
+    padding:7px 15px;
+
+    font-size:18px;
+    font-weight:700;
+
+    line-height:1;
+
+    flex-shrink:0;
 }
 
-h1 {
-    margin: 0;
-    font-size: 25px;
-    line-height: 1.35;
-    letter-spacing: -0.04em;
+h1{
+    margin:0;
+
+    font-size:26px;
+    line-height:1.35;
+
+    letter-spacing:-0.04em;
 }
 
-.image-frame {
-    width: 100%;
-    height: 220px;
-    min-height: 220px;
-    margin-bottom: 28px;
-    border-radius: 22px;
-    overflow: hidden;
-    background: linear-gradient(135deg, #efe5d6, #d9c2a4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #8b7766;
-    text-align: center;
-    font-size: 18px;
-    line-height: 1.7;
-    flex-shrink: 0;
+.image-frame{
+    width:100%;
+
+    height:220px;
+    min-height:220px;
+
+    margin-bottom:28px;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    background:linear-gradient(
+        135deg,
+        #efe5d6,
+        #dcc7aa
+    );
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    flex-shrink:0;
+
+    position:relative;
 }
 
-.image-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+.image-frame img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
 }
 
-.text {
-    font-size: 18px;
-    line-height: 1.9;
-    letter-spacing: -0.03em;
-    word-break: keep-all;
+.image-placeholder{
+    width:100%;
+    height:100%;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    color:#8f7b6b;
+
+    text-align:center;
+
+    line-height:1.8;
+
+    font-size:18px;
 }
 
-.text p {
-    margin: 0 0 16px;
+.image-placeholder small{
+    font-size:15px;
+    opacity:0.85;
 }
 
-.page-number {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 24px;
-    text-align: center;
-    color: #b6aaa0;
-    font-size: 16px;
+.text{
+    font-size:18px;
+
+    line-height:1.9;
+
+    letter-spacing:-0.03em;
+
+    word-break:keep-all;
 }
 
-.nav {
-    position: fixed;
-    left: 50%;
-    bottom: 16px;
-    transform: translateX(-50%);
-    width: min(86vw, 360px);
-    background: #111;
-    border-radius: 34px;
-    padding: 12px 22px;
-    display: flex;
-    justify-content: space-between;
-    z-index: 50;
+.text p{
+    margin:0 0 18px;
 }
 
-.nav button {
-    border: none;
-    background: transparent;
-    color: white;
-    font-size: 26px;
-    cursor: pointer;
+.page-number{
+    position:absolute;
+
+    left:0;
+    right:0;
+
+    bottom:24px;
+
+    text-align:center;
+
+    color:#b2a79c;
+
+    font-size:16px;
 }
 
-@media (min-width: 700px) {
-    .book-wrap {
-        padding: 28px 0;
-        align-items: center;
+.nav{
+    position:fixed;
+
+    left:50%;
+    bottom:18px;
+
+    transform:translateX(-50%);
+
+    width:min(86vw,360px);
+
+    background:#111;
+
+    border-radius:34px;
+
+    padding:12px 24px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    z-index:100;
+}
+
+.nav button{
+    border:none;
+    background:none;
+
+    color:white;
+
+    font-size:26px;
+
+    cursor:pointer;
+}
+
+.nav button:disabled{
+    opacity:0.25;
+}
+
+@media (min-width:700px){
+
+    .book{
+        width:390px;
+        height:700px;
     }
 
-    .book {
-        width: 370px;
-        height: 660px;
+    .page{
+        padding:42px 32px 56px;
     }
 
-    .page {
-        padding: 36px 28px 50px;
+    .image-frame{
+        height:230px;
+        min-height:230px;
     }
 
-    .image-frame {
-        height: 210px;
-        min-height: 210px;
+    h1{
+        font-size:28px;
     }
 
-    h1 {
-        font-size: 24px;
+    .text{
+        font-size:18px;
     }
 
-    .text {
-        font-size: 17px;
-        line-height: 1.9;
-    }
-
-    .nav {
-        display: none;
+    .nav{
+        display:none;
     }
 }
 
-@media (max-width: 430px) {
-    .book-wrap {
-        padding: 16px 10px;
-        align-items: flex-start;
+@media (max-width:430px){
+
+    .book-wrap{
+        align-items:flex-start;
+        padding:16px 10px;
     }
 
-    .book {
-        width: 100%;
-        height: calc(100vh - 34px);
+    .book{
+        width:100%;
+        height:calc(100vh - 34px);
     }
 
-    .page {
-        padding: 42px 28px 64px;
+    .page{
+        padding:42px 28px 64px;
     }
 
-    h1 {
-        font-size: 27px;
+    h1{
+        font-size:27px;
     }
 
-    .image-frame {
-        height: 235px;
-        min-height: 235px;
+    .image-frame{
+        height:235px;
+        min-height:235px;
     }
 
-    .text {
-        font-size: 21px;
-        line-height: 1.9;
+    .text{
+        font-size:21px;
+        line-height:1.9;
     }
 }
 </style>
@@ -214,103 +283,182 @@ h1 {
 <body>
 
 <div class="book-wrap">
-    <div class="book">
+<div class="book">
 
-        <section class="page active">
-            <div class="page-header">
-                <div class="num">01</div>
-                <h1>프롤로그 — 송정애의 방</h1>
-            </div>
+<!-- PAGE 1 -->
+<section class="page active">
 
-            <div class="image-frame">
-                <img src="images/main.jpg" alt="대표 그림">
-            </div>
+    <div class="page-header">
+        <div class="num">01</div>
+        <h1>프롤로그 — 송정애의 방</h1>
+    </div>
 
-            <div class="text">
-                <p>이 페이지에는 해당 기록물의 사진과 짧은 글을 넣습니다.</p>
-                <p>전시장에서는 오래 읽히는 글보다, 한 장면이 정확히 남는 구성이 더 강합니다.</p>
-            </div>
+    <div class="image-frame">
+        <img src="images/main.jpg" alt="">
+    </div>
 
-            <div class="page-number">1 / 5</div>
-        </section>
+    <div class="text">
+        <p>
+            이 페이지에는 해당 기록물의 사진과 짧은 글을 넣습니다.
+        </p>
 
-        <section class="page">
-            <div class="page-header">
-                <div class="num">02</div>
-                <h1>남편이 사랑한 나무</h1>
-            </div>
+        <p>
+            전시장에서는 오래 읽히는 글보다,
+            한 장면이 정확히 남는 구성이 더 강합니다.
+        </p>
+    </div>
 
-            <div class="image-frame">
-                이미지 자리<br>
+    <div class="page-number">1 / 5</div>
+
+</section>
+
+<!-- PAGE 2 -->
+<section class="page">
+
+    <div class="page-header">
+        <div class="num">02</div>
+        <h1>남편이 사랑한 나무</h1>
+    </div>
+
+    <div class="image-frame">
+
+        <div class="image-placeholder">
+            이미지 자리
+            <small>
                 images/tree.jpg로 교체
-            </div>
-
-            <div class="text">
-                <p>나무는 말이 없지만, 오래 곁에 선 사람의 시간을 압니다.</p>
-                <p>이 장면은 한 사람을 설명하기보다, 그 사람이 사랑한 풍경을 통해 삶을 비추는 페이지입니다.</p>
-            </div>
-
-            <div class="page-number">2 / 5</div>
-        </section>
-
-        <section class="page">
-            <div class="page-header">
-                <div class="num">03</div>
-                <h1>나의 일기장</h1>
-            </div>
-
-            <div class="image-frame">
-                이미지 자리<br>
-                images/diary.jpg로 교체
-            </div>
-
-            <div class="text">
-                <p>일기는 하루를 붙잡아 두는 가장 조용한 방식입니다.</p>
-                <p>흘러간 시간은 사라지지 않고, 손글씨와 종이의 결 안에 남았습니다.</p>
-            </div>
-
-            <div class="page-number">3 / 5</div>
-        </section>
-
-        <section class="page">
-            <div class="page-header">
-                <div class="num">04</div>
-                <h1>남의 책 속에 실린 나의 모습</h1>
-            </div>
-
-            <div class="image-frame">
-                이미지 자리<br>
-                images/book.jpg로 교체
-            </div>
-
-            <div class="text">
-                <p>한 사람의 삶은 자기 기록에만 남지 않습니다.</p>
-                <p>누군가의 책 속에 스친 장면도, 다시 돌아보면 또 하나의 자서전이 됩니다.</p>
-            </div>
-
-            <div class="page-number">4 / 5</div>
-        </section>
-
-        <section class="page">
-            <div class="page-header">
-                <div class="num">05</div>
-                <h1>가족들의 어버이날 엽서</h1>
-            </div>
-
-            <div class="image-frame">
-                이미지 자리<br>
-                images/card.jpg로 교체
-            </div>
-
-            <div class="text">
-                <p>아이들의 글씨는 서툴렀지만, 그 마음은 오래 남았습니다.</p>
-                <p>종이는 낡아도 그날의 사랑은 아직 선명합니다.</p>
-            </div>
-
-            <div class="page-number">5 / 5</div>
-        </section>
+            </small>
+        </div>
 
     </div>
+
+    <div class="text">
+
+        <p>
+            오래된 나무 아래에서 가족은 밥을 먹고,
+            이야기를 나누고, 계절을 지나왔습니다.
+        </p>
+
+        <p>
+            나무는 한 사람의 기억이 되었고,
+            그 기억은 다시 그림이 되었습니다.
+        </p>
+
+    </div>
+
+    <div class="page-number">2 / 5</div>
+
+</section>
+
+<!-- PAGE 3 -->
+<section class="page">
+
+    <div class="page-header">
+        <div class="num">03</div>
+        <h1>나의 일기장</h1>
+    </div>
+
+    <div class="image-frame">
+
+        <div class="image-placeholder">
+            이미지 자리
+            <small>
+                images/diary.jpg로 교체
+            </small>
+        </div>
+
+    </div>
+
+    <div class="text">
+
+        <p>
+            일기는 하루를 붙잡아 두는 가장 조용한 방식입니다.
+        </p>
+
+        <p>
+            흘러간 시간은 사라지지 않고,
+            손글씨와 종이의 결 안에 남았습니다.
+        </p>
+
+    </div>
+
+    <div class="page-number">3 / 5</div>
+
+</section>
+
+<!-- PAGE 4 -->
+<section class="page">
+
+    <div class="page-header">
+        <div class="num">04</div>
+        <h1>남의 책 속에 실린 나의 모습</h1>
+    </div>
+
+    <div class="image-frame">
+
+        <div class="image-placeholder">
+            이미지 자리
+            <small>
+                images/book.jpg로 교체
+            </small>
+        </div>
+
+    </div>
+
+    <div class="text">
+
+        <p>
+            한 사람의 삶은 자기 기록에만 남지 않습니다.
+        </p>
+
+        <p>
+            누군가의 책 속에 스친 장면도,
+            다시 돌아보면 또 하나의 자서전이 됩니다.
+        </p>
+
+    </div>
+
+    <div class="page-number">4 / 5</div>
+
+</section>
+
+<!-- PAGE 5 -->
+<section class="page">
+
+    <div class="page-header">
+        <div class="num">05</div>
+        <h1>가족들의 어버이날 엽서</h1>
+    </div>
+
+    <div class="image-frame">
+
+        <div class="image-placeholder">
+            이미지 자리
+            <small>
+                images/card.jpg로 교체
+            </small>
+        </div>
+
+    </div>
+
+    <div class="text">
+
+        <p>
+            아이들의 글씨는 서툴렀지만,
+            그 마음은 오래 남았습니다.
+        </p>
+
+        <p>
+            종이는 낡아도
+            그날의 사랑은 아직 선명합니다.
+        </p>
+
+    </div>
+
+    <div class="page-number">5 / 5</div>
+
+</section>
+
+</div>
 </div>
 
 <div class="nav">
@@ -319,47 +467,85 @@ h1 {
 </div>
 
 <script>
+
 const pages = document.querySelectorAll('.page');
+
 let current = 0;
 
-function showPage(index) {
-    pages.forEach((page, i) => {
-        page.classList.toggle('active', i === index);
+function showPage(index){
+
+    pages.forEach((page,i)=>{
+
+        if(i===index){
+            page.classList.add('active');
+        }else{
+            page.classList.remove('active');
+        }
+
     });
+
 }
 
-function nextPage() {
-    if (current < pages.length - 1) {
+function nextPage(){
+
+    if(current < pages.length - 1){
+
         current++;
+
         showPage(current);
+
     }
+
 }
 
-function prevPage() {
-    if (current > 0) {
+function prevPage(){
+
+    if(current > 0){
+
         current--;
+
         showPage(current);
+
     }
+
 }
 
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'ArrowRight') nextPage();
-    if (e.key === 'ArrowLeft') prevPage();
+document.addEventListener('keydown', function(e){
+
+    if(e.key === 'ArrowRight'){
+        nextPage();
+    }
+
+    if(e.key === 'ArrowLeft'){
+        prevPage();
+    }
+
 });
 
 let startX = 0;
 
-document.addEventListener('touchstart', function(e) {
+document.addEventListener('touchstart', function(e){
+
     startX = e.touches[0].clientX;
+
 });
 
-document.addEventListener('touchend', function(e) {
+document.addEventListener('touchend', function(e){
+
     const endX = e.changedTouches[0].clientX;
+
     const diff = startX - endX;
 
-    if (diff > 50) nextPage();
-    if (diff < -50) prevPage();
+    if(diff > 50){
+        nextPage();
+    }
+
+    if(diff < -50){
+        prevPage();
+    }
+
 });
+
 </script>
 
 </body>
